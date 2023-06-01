@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>31337: 아이디 찾기 결과</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/find_id/find_id_result.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="card card-login">
+        <div class="card-header">
+          <h4 class="text-center">아이디 찾기 결과</h4>
+        </div>
+        <div class="card-body">
+          {% if user %}
+            <p class="result-message"><span>{{ user.username }}</span>님의 아이디는 <span>{{ user.id }}</span> 입니다.</p>
+          {% else %}
+            <p class="result-message failed">해당 계정이 존재하지 않습니다.</p>
+          {% endif %}
+          <div class="text-center mt-3">
+            <a href="{% url 'check:login' %}" class="btn btn-color px-5">로그인 페이지로 이동</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

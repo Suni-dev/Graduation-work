@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>31337:실시간 출석현황페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            margin-top: 50px;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #777;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 25%;
+        }
+
+        td {
+            font-size: 16px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #777;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Status cards styling */
+        .status-cards {
+            margin: 50px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .status-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 0 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            flex-basis: 150px;
+            margin-bottom: 30px;
+        }
+
+        .status-card:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .status-card h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        .status-card p {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        /* Animation effects */
+        .fade-in {
+            animation: fade-in 1s ease forwards;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive styling */
+        @media only screen and (max-width: 768px) {
+            th {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .status-card {
+                flex-basis: 45%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Made by TEAM.31337</h1>
+        <h2>실시간 출석 현황</h2>
+        <div style="text-align: right; margin-right: 30px;">
+            <span id="user-name">{{ attendance.student_name }}</span>
+            <button id="logout-btn" style="margin-left: 20px;">로그아웃</button>
+        </div>
+    </header>
+
+    <div class="container fade-in">
+        <div class="status-cards">
+            <div class="status-card">
+                <h2>총원</h2>
+                <p id="total">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>출석</h2>
+                <p id="attendance">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>지각</h2>
+                <p id="late">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>결석</h2>
+                <p id="absent">0</p>
+            </div>
+            <div class="status-card">
+                <h2>출석률</h2>
+                <p id="percentage">0%</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>학번</th>
+                    <th>출석 상태</th>
+                    <th>수업 시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in attendance_list %}
+                    <tr>
+                        <td>{{ attendance.student_name }}</td>
+                        <td>{{ attendance.student_id }}</td>
+                        <td>{{ attendance.attendance_status }}</td>
+                        <td>{{ attendance.class_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    function logout() {
+      document.getElementById("logout-form").submit();
+    }
+    </script>
+    <form id="logout-form" action="{% url 'check:logout' %}" method="POST">
+    {% csrf_token %}
+  </form>
+    <script>
+    function updateStatus() {
+        $.ajax({
+            url:'http://192.168.155.24:8000/api/', /*'http://127.0.0.1:8000/check/api_/', */ 
+            type: 'GET',
+            success: function(data) {
+                $('#total').text(data.total + '명');
+                $('#attendance').text(data.attendance_count + '명');
+                $('#late').text(data.late + '명');
+                $('#absent').text(data.absent + '명');
+
+                var tbody = $("tbody").empty();
+                    for (var i = 0; i < data.attendance.length; i++) {
+                        var attendance = data.attendance[i];
+                        tbody.append(
+                            `<tr>
+                                <td>${attendance.student_name}</td>
+                                <td>${attendance.student_id}</td>
+                                <td>${attendance.attendance_status}</td>
+                                <td>${attendance.class_time}</td>
+                            </tr>`
+                        );
+                    }
+                // 출석률 계산
+                if(data.total > 0) {
+                    var attendanceRate = ((data.attendance_count + data.late) / data.total) * 100;
+                    $('#percentage').text(attendanceRate.toFixed(2) + '%');
+                } else {
+                    $('#percentage').text('N/A');
+                }
+            },
+            error: function() {
+                $('#total').text('N/A');
+                $('#attendance').text('N/A');
+                $('#late').text('N/A');
+                $('#absent').text('N/A');
+                $('#percentage').text('N/A');
+            }
+        });
+    }
+
+    setInterval(updateStatus, 2000);
+</script>
+</body>
+</html>

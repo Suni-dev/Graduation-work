@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>31337:교수누적출석페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <style>
+body {
+    overflow: auto;
+    background-color: #F7F7F7;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding: 1rem;
+  }
+  .sidebar {
+    width: 25%;
+    border-right: 1px solid #dee2e6;
+    margin-top: 1rem;
+  }
+  .sticky {
+    position: sticky;
+    top: 1rem;
+  }
+  .nav-link {
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  color: #333;
+  transition: background-color 0.3s ease;
+  }
+  .nav-link:hover {
+  background-color: #f7f7f7;
+  }
+  .active {
+  background-color: #e9ecef;
+  font-weight: bold;
+  }
+  .nav-item:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+  }
+  .navbar-nav {
+    width: 100%;
+  }
+  .student_list {
+  width: 200px;
+  height: 800px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.student_list::before {
+  content: "학생";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  font-size: 1.5rem;
+  color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.student_attendance {
+  width: 700px;
+  height: 800px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.student_attendance::before {
+  content: "출석기록";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  font-size: 1.5rem;
+  color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+  </style>
+<body>
+    <div class="container">
+          <div class="sidebar sticky">
+            <a href="/">
+              <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+              class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+            </a>
+            <nav class="navbar navbar-expand-lg">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의1</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의2</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의3</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                    </div>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" href="#">강의4</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                        <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                        <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" href="#">강의5</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                        <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                        <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                      </div>
+                    </li>
+                </ul>
+              </div>
+            </nav>
+            
+          </div>
+          
+          <div class="student_list"></div>
+          <div class="student_attendance"></div>
+          </div>
+        </div>
+</body>
+</html>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+const dropdowns = document.querySelectorAll('.dropdown');
+
+dropdowns.forEach((dropdown) => {
+dropdown.addEventListener('mouseenter', () => {
+dropdown.querySelector('.dropdown-menu').style.display = 'block';
+});
+
+dropdown.addEventListener('mouseleave', () => {
+dropdown.querySelector('.dropdown-menu').style.display = 'none';
+});
+});
+});
+</script>

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>31337:회원가입</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register/register.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card my-5">
+            <form class="card-body card-body-color p-lg-5" method="POST" action="{% url 'check:register' %}">
+              {% csrf_token %}
+              <h2 class="text-center text-dark mt-5">회원가입</h2>
+              <div class="text-center mb-5 text-dark">Made with 31337</div>
+              {% if messages %}
+              <div class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+              <div class="mb-3">
+                <input type="text" class="form-control" id="id" name="id" placeholder="아이디">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id='username' name="username" placeholder="이름">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="usermajor" name="usermajor" placeholder="전공">
+              </div>
+              <div class="mb-3">
+                <label for="usergroup" class="form-label">나는</label>
+                <div class="form-check d-inline-block ml-2">
+                  <input class="form-check-input" type="radio" name="usergroup" id="student" value="student" checked>
+                  <label class="form-check-label" for="student">학생</label>
+                </div>
+                <div class="form-check d-inline-block ml-2">
+                  <input class="form-check-input" type="radio" name="usergroup" id="professor" value="professor">
+                  <label class="form-check-label" for="professor">교수</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인">
+              </div>
+              <div class="text-center mb-3">
+                <input type="submit" class="btn btn-color px-5 mb-5 w-100" value="회원가입">
+              </div>
+              <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                이미 회원인가요? <a href="{% url 'check:login' %}" class="text-dark fw-bold">로그인</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

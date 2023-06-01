@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:교수스트리밍페이지</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+
+body {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.menu-section {
+  width: 200px;
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.menu-section h3 {
+  margin-top: 0;
+}
+
+.menu-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-section li {
+  margin-bottom: 10px;
+}
+
+.menu-section a {
+  text-decoration: none;
+  color: #333;
+}
+
+.menu-section a:hover {
+  color: #007bff;
+}
+
+#classroom {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  background-color: #e1e1e1;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+</style>
+<body>
+  <div class="menu-section">
+    <h3>메뉴</h3>
+    <ul>
+      <li><a href="#">실시간 출석</a></li>
+      <li><a href="#">실시간 학생 위치 파악</a></li>
+    </ul>
+  </div>
+  <div id="classroom">
+    <!-- 강의실 그림(svg) -->
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  // 출석 학생 데이터와 위치에 따른 캐릭터 생성
+  const students = [
+    { id: 1, name: "홍길동", x: 10, y: 20, attendance: true },
+    { id: 2, name: "김철수", x: 50, y: 50, attendance: false },
+    // ... (추가 학생 데이터)
+  ];
+
+  const classroom = document.getElementById("classroom");
+
+  students.forEach(student => {
+    const studentElement = document.createElement("div");
+    studentElement.classList.add("student");
+    studentElement.style.left = `${student.x}px`;
+    studentElement.style.top = `${student.y}px`;
+
+    if (student.attendance) {
+      studentElement.style.color = "black";
+      studentElement.classList.add("attended");
+    } else {
+      studentElement.style.color = "gray";
+    }
+
+    studentElement.innerText = student.name;
+    classroom.appendChild(studentElement);
+  });
+});
+
+  </script>
+</body>
+</html>
