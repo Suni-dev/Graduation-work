@@ -6,6 +6,30 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.hashers import make_password
+
+class AccAtt801(models.Model):
+    stu = models.OneToOneField('UserElite', models.DO_NOTHING, primary_key=True)
+    number_1week = models.CharField(db_column='1week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_2week = models.CharField(db_column='2week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_3week = models.CharField(db_column='3week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_4week = models.CharField(db_column='4week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_5week = models.CharField(db_column='5week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_6week = models.CharField(db_column='6week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_7week = models.CharField(db_column='7week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_8week = models.CharField(db_column='8week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_9week = models.CharField(db_column='9week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_10week = models.CharField(db_column='10week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_11week = models.CharField(db_column='11week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_12week = models.CharField(db_column='12week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_13week = models.CharField(db_column='13week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_14week = models.CharField(db_column='14week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    number_15week = models.CharField(db_column='15week', max_length=50, blank=True, null=True)  # Field renamed because it wasn't a valid Python identifier.
+    acc_att_score = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'acc_att_801'
 
 
 class AccAttendanceElite(models.Model):
@@ -36,6 +60,8 @@ class Attendance80131337(models.Model):
     attendance_status = models.CharField(max_length=50, blank=True, null=True)
     class_time = models.CharField(max_length=50, blank=True, null=True)
     class_name = models.CharField(max_length=50, blank=True, null=True)
+    late_count = models.IntegerField(blank=True, null=True)
+
     class Meta:
         managed = False
         db_table = 'attendance_801_31337'
@@ -123,7 +149,6 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Class(models.Model):
-    id = models.IntegerField(primary_key=True)
     subject = models.CharField(max_length=50, blank=True, null=True)
     time_start = models.TimeField(blank=True, null=True)
     time_end = models.TimeField(blank=True, null=True)
@@ -233,9 +258,6 @@ class StuInfoElite(models.Model):
         managed = False
         db_table = 'stu_info_elite'
 
-
-from django.contrib.auth.hashers import make_password
-from django.db import models
 
 class User31337Manager(models.Manager):
     def create_user(self, id, password=None, **extra_fields):

@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/', api_view, name='api'),
     path('agreement/', agreement, name='agreement'),
     path('logout/', logout_view, name='logout'),
+    path('student_att/',student_att_view, name='student_att'),
 ]

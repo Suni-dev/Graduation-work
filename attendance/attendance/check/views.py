@@ -42,13 +42,21 @@ def logout_view(request):
 #@login_required
 def student_main(request):
     user = User31337.objects.get(id=request.session['user_id'])
-
+    lectures = Class.objects.all()
     context = {
         'user': user,
+        'lectures': lectures,
     }
 
     return render(request, 'check/student/student_main.html', context)
 
+from .models import Class
+
+def student_att_view(request):
+
+
+
+    return render(request, 'check/student/student_att.html')
 
 #@login_required
 def professor_main(request):
@@ -177,6 +185,8 @@ def attendance_view1(request):
     }
 
     return render(request, 'check/attendance/a.html', context)
+
+
 
 from django.contrib.auth import logout
 from django.http import HttpResponse

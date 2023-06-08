@@ -28,54 +28,14 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul>
+                  {% for lecture in lectures %}
                   <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의1</a>
+                    <a class="nav-link" href="#">{{ lecture.subject }}</a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의1 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의1 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                      <a class="dropdown-item" href="{% url 'check:student_att' %}">{{ lecture.subject }} - 출석 현황</a>
                     </div>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의2</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의2 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의2 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의2 - 주제3</a>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의3</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의3 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의3 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의3 - 주제3</a>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의4</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의4 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의4 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의4 - 주제3</a>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의5</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의5 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의5 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의5 - 주제3</a>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="#">강의6</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">강의6 - 주제1</a>
-                      <a class="dropdown-item" href="#">강의6 - 주제2</a>
-                      <a class="dropdown-item" href="#">강의6 - 주제3</a>
-                    </div>
-                  </li>
+                  {% endfor %}
                 </ul>
               </div>
             </nav>

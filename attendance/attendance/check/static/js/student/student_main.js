@@ -1,17 +1,22 @@
+document.addEventListener('DOMContentLoaded', function () {
+  const dropdowns = document.querySelectorAll('.dropdown');
 
-      document.addEventListener('DOMContentLoaded', function () {
-    const dropdowns = document.querySelectorAll('.dropdown');
-  
-    dropdowns.forEach((dropdown) => {
-      dropdown.addEventListener('mouseenter', () => {
-        dropdown.querySelector('.dropdown-menu').style.display = 'block';
-      });
-  
-      dropdown.addEventListener('mouseleave', () => {
-        dropdown.querySelector('.dropdown-menu').style.display = 'none';
-      });
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('click', () => {
+      const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+      dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
     });
   });
+
+  // 페이지의 다른 부분을 클릭하면 드랍다운 메뉴가 사라지도록 하는 코드
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.dropdown')) {
+      dropdowns.forEach((dropdown) => {
+        dropdown.querySelector('.dropdown-menu').style.display = 'none';
+      });
+    }
+  });
+});
     const chartData1 = {
       labels: ['2023-04-01', '2023-04-08', '2023-04-15', '2023-04-22', '2023-04-29'],
       datasets: [
