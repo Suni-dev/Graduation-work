@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31337:개인정보 이용동의서</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F7F7F7;
+        }
+        #privacyModal {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        #privacyModal h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #privacyModal p {
+            line-height: 1.6;
+        }
+        #agreeButton, #disagreeButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        #agreeButton {
+            background-color: #4CAF50;
+        }
+        #disagreeButton {
+            background-color: #F44336;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="privacyModal">
+        <h2>개인정보 이용동의서</h2>
+        <p>
+            본인은 이 시스템을 사용함에 따라 [개인정보 보호법] 제15조 및 제17조에 따라 아래의 내용으로 개인정보를 수집, 이용하는데 동의합니다.
+            <br><br>
+            □ 개인정보의 수집 및 이용에 관한 사항
+            <br>
+            - 수집하는 개인정보 항목 : 성명, 학번, 증명사진, 학과
+            <br>
+            - 개인정보의 이용 목적 : 수집된 개인정보를 자동 출석 체크, 시스템 사용자 확인 서비스 등을 목적으로 활용하며, 목적 외의 용도로는 사용하지 않습니다.
+            <br><br>
+            □ 개인정보의 보관 및 이용 기간
+            <br>
+            - 귀하의 개인정보를 다음과 같이 보관하며, 수집, 이용 및 제공목적이 달성된 경우 [개인정보 보호법] 제21조에 따라 처리합니다.   
+            <br><br>
+            □ 본인은 개인정보 수집 및 이용에 대하여 동의하십니까?
+            <br>
+        </p>
+        <a href="{% url 'check:register' %}" id="agreeButton">□ 동의합니다</a>
+        <a href="{% url 'check:login' %}" id="disagreeButton">□ 동의하지 않습니다.</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:학생 메인 페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_main.css' %}">
+  <script type="text/javascript" src="{% static 'js/student/student_main.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <button class="logout-btn" onclick="logout()">로그아웃</button>
+  <div class="container">
+    <div class="sidebar sticky">
+      <a href="#" onclick="location.reload();">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+      </a>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul>
+            {% for lecture in lectures %}
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">{{ lecture.subject }}</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'check:student_att' %}">{{ lecture.subject }} - 출석 현황</a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="content"> 
+      <div class="main-content">
+        <h2 class="text-center text-dark mt-5">학생 메인 페이지</h2>
+        <div class="student-info mt-5">
+          <p>이름: {{ user.username }}</p>
+          <p>학번: {{ user.id }}</p>
+          <p>전공: {{ user.usermajor }}</p>
+        </div>
+        <div class="graph mt-5">
+        <canvas id="attendance-chart-1"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function logout() {
+    document.getElementById("logout-form").submit();
+  }
+</script>
+<form id="logout-form" action="{% url 'check:logout' %}" method="POST">
+  {% csrf_token %}
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const dropdowns = document.querySelectorAll('.dropdown');
+
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('click', () => {
+      const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+      dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+
+  // 페이지의 다른 부분을 클릭하면 드랍다운 메뉴가 사라지도록 하는 코드
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.dropdown')) {
+      dropdowns.forEach((dropdown) => {
+        dropdown.querySelector('.dropdown-menu').style.display = 'none';
+      });
+    }
+  });
+
+// AJAX 요청을 보내 데이터를 비동기적으로 가져오는 함수
+function fetchAttendanceData(callback) {
+  $.ajax({
+    url: 'http://127.0.0.1:8000/api2/',  // Django view에서 데이터를 가져오는 URL
+    type: "GET",  // HTTP method, 데이터를 가져오므로 "GET"
+    dataType: "json",  // 응답 데이터 타입, JSON을 기대함
+    success: function (response) {
+      // 응답이 성공적으로 도착하면, 응답 데이터를 callback 함수에 넘김
+      callback(response);
+    },
+    error: function (error) {
+      // 오류가 발생하면 콘솔에 로그를 남김
+      console.error("Error fetching data: ", error);
+    }
+  });
+}
+
+// 출석 데이터에 대한 점수를 반환하는 함수
+function getAttendanceScore(attendance) {
+  switch (attendance) {
+    case '출석':
+      return 1;
+    case '지각':
+      return 0.5;
+    case '결석':
+      return 0;
+    default:
+      return null;
+  }
+}
+
+fetchAttendanceData(function (attendance_data) {
+  console.log(attendance_data);
+  // 각 학생이 듣고 있는 강의의 출석 점수를 계산합니다.
+  var lectureScores = {};  // { lectureSubject: [week1Score, week2Score, ...], ... }
+
+  for (let lectureData of attendance_data) {
+    let subject = lectureData.subject__subject;
+    let scores = [];
+    for (let i = 1; i <= 15; i++) {
+      let week = 'number_' + i + 'week';
+      scores.push(getAttendanceScore(lectureData[week]));
+    }
+
+    lectureScores[subject] = scores;
+  }
+
+  // 차트 데이터를 설정합니다.
+  var datasets = [];
+  for (let [subject, scores] of Object.entries(lectureScores)) {
+    datasets.push({
+      label: subject + ' Attendance Score',
+      data: scores,
+      fill: false,
+      borderColor: '#4BC0C0',  // 색상은 다른 고유 색상으로 설정해야 함
+      borderWidth: 2
+    });
+  }
+
+  var chartData = {
+    labels: Array.from({ length: 15 }, (_, i) => 'Week ' + (i + 1)),
+    datasets: datasets,
+  };
+
+  // 차트 설정을 생성합니다.
+  var config = {
+    type: 'bar',
+    data: chartData,
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Week',
+          },
+        },
+        y: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Attendance Score',
+          },
+          suggestedMin: 0,
+          suggestedMax: 1,
+        },
+      },
+    },
+  };
+
+  // 차트를 생성합니다.
+  var chart = new Chart(document.getElementById('attendance-chart-1'), config);
+});
+
+});
+
+</script>
+</html>

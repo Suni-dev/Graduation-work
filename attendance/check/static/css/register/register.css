@@ -1,0 +1,106 @@
+body {
+  overflow: hidden;
+  background-color: #F7F7F7;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.card-body-color {
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+.card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.btn-color {
+  background-color: #005C97;
+  color: #ffffff;
+  border-radius: 30px;
+  border: none;
+}
+.profile-image-pic {
+  margin: 0 auto;
+  border: 5px solid #fff;
+  transition: all 0.3s ease-in-out;
+}
+img {
+  display: block;
+  margin: 0 auto;
+}
+.form-control {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #363636;
+}
+.form-control:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px #005C97;
+}
+.form-check-input {
+  display: none;
+}
+
+.form-check-label {
+  padding: 10px;
+  border: 1px solid #005C97;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #005C97;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.form-check-input:checked + .form-check-label {
+  background-color: #005C97;
+  color: #ffffff;
+}
+.form-text {
+  font-size: 16px;
+  color: #8c8c8c;
+  font-weight: bold;
+}
+.fw-bold {
+  font-weight: bold;
+}
+.text-center {
+  text-align: center;
+}
+.mt-5 {
+  margin-top: 5%;
+}
+.mb-5 {
+  margin-bottom: 5%;
+}
+   /* Add this inside the <style> tag in your <head> section */
+   .form-check-input {
+    display: none;
+}
+
+.form-check-label {
+    padding: 10px;
+    border: 1px solid #005C97;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #005C97;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.form-check-input:checked + .form-check-label {
+    background-color: #005C97;
+    color: #ffffff;
+}
+.form-check {
+    position: relative;
+    padding-left: 30px;
+}
+
+.form-check-input {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    margin: 0;
+}

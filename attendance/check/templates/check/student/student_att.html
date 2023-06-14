@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:학생 출석 현황</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_att.css' %}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <button class="logout-btn" onclick="logout()">로그아웃</button>
+  <div class="container">
+    <div class="sidebar sticky">
+      <a href="#" onclick="location.reload();">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+      </a>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul>
+            {% for lecture in lectures %}
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">{{ lecture.subject }}</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'check:student_main' %}">{{ lecture.subject }} - 학생 메인 페이지</a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="content"> 
+      <div class="main-content">
+        <h2 class="text-center text-dark mt-5">출석 현황</h2>
+        <div class="student-info mt-5">
+          <p>이름: {{ user.username }}</p>
+          <p>학번: {{ user.id }}</p>
+          <p>전공: {{ user.usermajor }}</p>
+        </div>
+        <div class="attendance mt-5">
+          <table>
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>출석 상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attendance in attendances %}
+              <tr>
+                <td>{{ attendance.date }}</td>
+                <td>{{ attendance.status }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{% static 'js/student/student_att.js' %}"></script>
+  <script>
+    function logout() {
+      document.getElementById("logout-form").submit();
+    }
+
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = document.querySelectorAll('.dropdown');
+  
+    dropdowns.forEach((dropdown) => {
+      dropdown.addEventListener('click', () => {
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+      });
+    });
+  
+    // 페이지의 다른 부분을 클릭하면 드랍다운 메뉴가 사라지도록 하는 코드
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.dropdown')) {
+        dropdowns.forEach((dropdown) => {
+          dropdown.querySelector('.dropdown-menu').style.display = 'none';
+        });
+      }
+    });
+  });
+
+  </script>
+  <form id="logout-form" action="{% url 'check:logout' %}" method="POST">
+    {% csrf_token %}
+  </form>
+</body>
+</html>

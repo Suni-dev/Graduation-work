@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 출석 현황</title>
+    <style>
+        /* 여기에 필요한 CSS를 추가 */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Made by TEAM.31337</h1>
+        <h2>실시간 출석 현황</h2>
+        <h3>현재 수업: 데이터신</h3>
+        <div style="text-align: right; margin-right: 30px;">
+            <span id="user-name">{{ user.username }} 교수님</span>
+            <button class="logout-btn" onclick="logout()" style="margin-left: 20px;">로그아웃</button>
+        </div>
+    </header>
+
+    <div class="container fade-in">
+        <div class="status-cards">
+            <div class="status-card">
+                <h2>총원</h2>
+                <p id="total">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>출석</h2>
+                <p id="attendance">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>지각</h2>             
+                <p id="late">0</p>
+            </div>
+
+            <div class="status-card">
+                <h2>결석</h2>
+                <p id="absent">0</p>
+            </div>
+            <div class="status-card">
+                <h2>출석률</h2>
+                <p id="percentage">0%</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>학번</th>
+                    <th>출석 상태</th>
+                    <th>수업 시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% attendance in attendance_list %}
+                    <tr>
+                        <td>{{ attendance.student_name }}</td>
+                        <td>{{ attendance.student_id }}</td>
+                        <td>{{ attendance.attendance_status }}</td>
+                        <td>{{ attendance.class_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // 여기에 필요한 JavaScript를 추가하세요
+    </script>
+</body>
+</html>
