@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>31337: 아이디 찾기</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/find_id/find_id.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-login">
+            <form class="card-body card-body-color p-lg-5" method="POST" id="login-form">
+              {% csrf_token %}
+              <h2 class="text-center text-dark mt-5">아이디 찾기</h2>
+              <div class="text-center mb-5 text-dark">Made with 31337</div>
+              {% if messages %}
+                <div class="alert alert-danger text-center" id="alert-msg">
+                  {% for message in messages %}
+                    <p>{{ message }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <div class="text-center">
+                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                  class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="username" name="username" placeholder="이름">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="user" name="usermajor" placeholder="전공" autocomplete="off">
+            </div>
+              <div class="text-center mb-3">
+                <input type="submit" class="btn btn-color px-5 mb-5 w-100" value="id찾기">
+                <a href="{% url 'check:login' %}" class="text-dark fw-bold">로그인 페이지로</a>&nbsp;&nbsp;&nbsp;
+              </div>
+              <div id="find-id-result"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/find_id/find_id.js' %}"></script>
+  </body>
+</html>

@@ -4,7 +4,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
+  <title>31337:학생 출석 현황</title>
+=======
   <title>31337:학생 메인 페이지</title>
+>>>>>>> f9f3843 (최종수정)
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
@@ -18,18 +22,46 @@
   <button class="logout-btn" onclick="logout()">로그아웃</button>
   <div class="container">
     <div class="sidebar sticky">
+<<<<<<< HEAD
+      <a href="#" onclick="location.reload();">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+      </a>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul>
+            {% for lecture in lectures %}
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">{{ lecture.subject }}</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'check:student_main' %}">{{ lecture.subject }} - 학생 메인 페이지</a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+=======
       <a href="/">
         <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
       </a>
       <nav class="navbar navbar-expand-lg">
         <!-- Your navigation menu here -->
+>>>>>>> f9f3843 (최종수정)
       </nav>
     </div>
     <div class="content"> 
       <div class="main-content">
         <h2 class="text-center text-dark mt-5">출석 현황</h2>
         <div class="student-info mt-5">
+<<<<<<< HEAD
+          <p>이름: {{ user.username }}</p>
+          <p>학번: {{ user.id }}</p>
+          <p>전공: {{ user.usermajor }}</p>
+=======
           <!-- Student info here -->
+>>>>>>> f9f3843 (최종수정)
         </div>
         <div class="attendance mt-5">
           <table>
@@ -52,10 +84,39 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+  <script type="text/javascript" src="{% static 'js/student/student_att.js' %}"></script>
+=======
+>>>>>>> f9f3843 (최종수정)
   <script>
     function logout() {
       document.getElementById("logout-form").submit();
     }
+<<<<<<< HEAD
+
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = document.querySelectorAll('.dropdown');
+  
+    dropdowns.forEach((dropdown) => {
+      dropdown.addEventListener('click', () => {
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+      });
+    });
+  
+    // 페이지의 다른 부분을 클릭하면 드랍다운 메뉴가 사라지도록 하는 코드
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.dropdown')) {
+        dropdowns.forEach((dropdown) => {
+          dropdown.querySelector('.dropdown-menu').style.display = 'none';
+        });
+      }
+    });
+  });
+
+=======
+>>>>>>> f9f3843 (최종수정)
   </script>
   <form id="logout-form" action="{% url 'check:logout' %}" method="POST">
     {% csrf_token %}

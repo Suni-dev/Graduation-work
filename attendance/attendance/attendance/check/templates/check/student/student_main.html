@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:학생 메인 페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_main.css' %}">
+  <script type="text/javascript" src="{% static 'check/js/student/student_main.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <button class="logout-btn" onclick="logout()">로그아웃</button>
+  <div class="container">
+        <div class="sidebar sticky">
+          <a href="/">
+            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+            class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+          </a>
+            <nav class="navbar navbar-expand-lg">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul>
+                  {% for lecture in lectures %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">{{ lecture.subject }}</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{% url 'check:student_att' %}">{{ lecture.subject }} - 출석 현황</a>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </nav>
+          </div>
+          <div class="content"> 
+            <div class="main-content">
+              <h2 class="text-center text-dark mt-5">학생 메인 페이지</h2>
+              <div class="student-info mt-5">
+                <p>이름: {{ user.username }}</p>
+                <p>학번: {{ user.id }}</p>
+                <p>전공: {{ user.usermajor }}</p>
+              </div>
+              <div class="graph mt-5">
+                <canvas id="attendance-chart-1"></canvas>
+              </div>
+              <div class="menu">
+                <h3 id="lecture1" class="fw-bold mb-5">강의1</h3>
+              </div>
+              <div class="graph mt-5">
+                <canvas id="attendance-chart-2"></canvas>
+              </div>
+              <div class="menu">
+                <h3 id="lecture2" class="fw-bold mb-5">강의2</h3>
+              </div>
+              <div class="graph mt-5">
+                <canvas id="attendance-chart-3"></canvas>
+              </div>
+              <div class="menu">
+                <h3 id="lecture3" class="fw-bold mb-5">강의3</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+  <canvas id="attendance-chart-1"></canvas>
+  <canvas id="attendance-chart-2"></canvas>
+  <canvas id="attendance-chart-3"></canvas>
+  <script type="text/javascript" src="{% static 'js/student/student_main.js' %}"></script>
+  <script>
+    function logout() {
+      document.getElementById("logout-form").submit();
+    }
+  </script>
+  <form id="logout-form" action="{% url 'check:logout' %}" method="POST">
+    {% csrf_token %}
+  </form>
+</body>
+</html>

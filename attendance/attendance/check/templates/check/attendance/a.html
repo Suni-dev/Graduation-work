@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>31337:실시간 출석현황페이지</title>
+<<<<<<< HEAD
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+=======
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+>>>>>>> f9f3843 (최종수정)
     <style>
         * {
             box-sizing: border-box;
@@ -12,6 +17,181 @@
             padding: 0;
         }
 
+<<<<<<< HEAD
+     body {
+        font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* Header styling */
+    header {
+        background-color: #fff;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        letter-spacing: 2px;
+        font-weight: bold;
+        font-size: 2.5em;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        letter-spacing: 2px;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        margin-top: 50px;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: #333;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #777;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        width: 25%;
+    }
+
+    td {
+        font-size: 18px;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #777;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    /* Status cards styling */
+    .status-cards {
+        margin: 50px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .status-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 0 20px;
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        flex-basis: 150px;
+        margin-bottom: 30px;
+    }
+
+    .status-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+    .status-card h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+        letter-spacing: 2px;
+    }
+
+    .status-card p {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #111;
+    }
+
+    /* Animation effects */
+    .fade-in {
+    animation: fade-in 2s ease forwards;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    /* Responsive styling */
+    @media only screen and (max-width: 768px) {
+        th {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        td {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .status-card {
+            flex-basis: 45%;
+        }
+    }
+    #user-name {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .logout-btn {
+        font-size: 16px;
+        color: #fff;
+        background-color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background-color: #444;
+    }
+    h3 {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+=======
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f0f0f0;
@@ -152,15 +332,25 @@
                 flex-basis: 45%;
             }
         }
+>>>>>>> f9f3843 (최종수정)
     </style>
 </head>
 <body>
     <header>
+<<<<<<< HEAD
+        <h1>Created by TEAM.31337</h1>
+        <h2>실시간 출석 현황</h2>
+        <h3>현재 수업: 인공지능</h3>
+        <div style="text-align: right; margin-right: 30px;">
+            <span id="user-name">{{ user.username }} 교수님</span>
+            <button class="logout-btn" onclick="logout()" style="margin-left: 20px;">로그아웃</button>
+=======
         <h1>Made by TEAM.31337</h1>
         <h2>실시간 출석 현황</h2>
         <div style="text-align: right; margin-right: 30px;">
             <span id="user-name">{{ attendance.student_name }}</span>
             <button id="logout-btn" style="margin-left: 20px;">로그아웃</button>
+>>>>>>> f9f3843 (최종수정)
         </div>
     </header>
 
@@ -180,12 +370,22 @@
                 <h2>지각</h2>
                 <p id="late">0</p>
             </div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> f9f3843 (최종수정)
             <div class="status-card">
                 <h2>결석</h2>
                 <p id="absent">0</p>
             </div>
             <div class="status-card">
+<<<<<<< HEAD
+                <h2>이탈</h2>
+                <p id="leave">0</p>
+            </div>
+            <div class="status-card">
+=======
+>>>>>>> f9f3843 (최종수정)
                 <h2>출석률</h2>
                 <p id="percentage">0%</p>
             </div>
@@ -211,6 +411,10 @@
                 {% endfor %}
             </tbody>
         </table>
+<<<<<<< HEAD
+        </div>
+=======
+>>>>>>> f9f3843 (최종수정)
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -223,6 +427,69 @@
     {% csrf_token %}
   </form>
     <script>
+<<<<<<< HEAD
+    // 'http://192.168.155.24:8000/check/api/',
+    // 'http://127.0.0.1:8000/api/',
+    // 'url:'http://ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com/api',
+    function updateStatus() {
+    $.ajax({
+        url:'http://127.0.0.1:8000/api/',
+        type: 'GET',
+        success: function(data) {
+            // 'total'에 대한 카운트 업 애니메이션 적용
+            var total = data.total;
+            var $total = $('#total');
+            $({ countNum: parseInt($total.text()) }).animate({ countNum: total }, {
+              duration: 800,
+              easing: 'swing',
+              step: function() {
+                $total.text(Math.floor(this.countNum) + '명');
+              },
+              complete: function() {
+                $total.text(this.countNum + '명');
+              }
+            });
+
+            $('#attendance').text(data.attendance_count + '명');
+            $('#late').text(data.late + '명');
+            $('#absent').text(data.absent + '명');
+            $('#leave').text(data.leave + '명');
+
+            var tbody = $("tbody").empty();
+            for (var i = 0; i < data.attendance.length; i++) {
+                var attendance = data.attendance[i];
+                tbody.append(
+                    `<tr>
+                        <td>${attendance.student_name}</td>
+                        <td>${attendance.student_id}</td>
+                        <td>${attendance.attendance_status}</td>
+                        <td>${attendance.class_time}</td>
+                    </tr>`
+                );
+            }
+            // 출석률 계산
+            if(data.total > 0) {
+                var attendanceRate = ((data.attendance_count + data.late) / data.total) * 100;
+                $('#percentage').text(attendanceRate.toFixed(2) + '%');
+            } else {
+                $('#percentage').text('N/A');
+            }
+        },
+        error: function() {
+            $('#total').text('N/A');
+            $('#attendance').text('N/A');
+            $('#late').text('N/A');
+            $('#absent').text('N/A');
+            $('#leave').text('N/A');
+            $('#percentage').text('N/A');
+        }
+    });
+}
+
+setInterval(updateStatus, 100);
+
+
+=======
     function updateStatus() {
         $.ajax({
             url:'http://192.168.155.24:8000/api/', /*'http://127.0.0.1:8000/check/api_/', */ 
@@ -264,6 +531,7 @@
     }
 
     setInterval(updateStatus, 2000);
+>>>>>>> f9f3843 (최종수정)
 </script>
 </body>
 </html>

@@ -124,4 +124,8 @@ class AccAtt801(models.Model):
 
     def save(self, *args, **kwargs):
         self.acc_att_score = self.calculate_attendance_score()
+<<<<<<< HEAD
         super().save(*args, **kwargs)
+=======
+        super().save(*args, **kwargs)
+>>>>>>> f9f3843 (최종수정)

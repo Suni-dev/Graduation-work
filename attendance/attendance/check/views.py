@@ -13,6 +13,10 @@ from .models import Class
 from .models import Attendance80131337
 from .models import Attendance801Elite
 from .models import AccAtt801
+<<<<<<< HEAD
+from django.contrib.auth import authenticate
+=======
+>>>>>>> f9f3843 (최종수정)
 
 
 #31337ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -24,10 +28,16 @@ def login_view(request):
         password = request.POST["password"]
         try:
             user = User.objects.get(id=id)
+<<<<<<< HEAD
+            if check_password(password, user.password):
+                request.session['user_id'] = user.id
+                if user.usergroup.group == 'professor':
+=======
             if check_password(password, user.password):  # 암호화된 비밀번호 확인
                 request.session['user_id'] = user.id
                 if user.usergroup.group == 'professor':
                     #return redirect("check:professor_main")
+>>>>>>> f9f3843 (최종수정)
                     return redirect("check:attendance")
                 elif user.usergroup.group == 'student':
                     return redirect("check:student_main")
@@ -247,6 +257,10 @@ def api_view(request):
     attendance_count = attendance_list.filter(attendance_status='출석').count()
     late = attendance_list.filter(attendance_status='지각').count()
     absent = attendance_list.filter(attendance_status='결석').count()
+<<<<<<< HEAD
+    leave = attendance_list.filter(attendance_status='이탈').count()
+=======
+>>>>>>> f9f3843 (최종수정)
 
     # 전체 출석 정보를 가져옵니다.
     attendance_info = list(attendance_list.values('student_name','student_id','attendance_status', 'class_time', 'class_name'))
@@ -257,6 +271,10 @@ def api_view(request):
         'attendance_count': attendance_count, 
         'late': late, 
         'absent': absent,
+<<<<<<< HEAD
+        'leave': leave,
+=======
+>>>>>>> f9f3843 (최종수정)
         'attendance': attendance_info,
     })
 
@@ -269,6 +287,10 @@ def api_view1(request):
     attendance_count = attendance_list.filter(attendance_status='출석').count()
     late = attendance_list.filter(attendance_status='지각').count()
     absent = attendance_list.filter(attendance_status='결석').count()
+<<<<<<< HEAD
+    leave = attendance_list.filter(attendance_status='이탈').count()
+=======
+>>>>>>> f9f3843 (최종수정)
 
     # 전체 출석 정보를 가져옵니다.
     attendance_info = list(attendance_list.values('student_name','student_id','attendance_status', 'class_time', 'class_name'))
@@ -279,9 +301,17 @@ def api_view1(request):
         'attendance_count': attendance_count, 
         'late': late, 
         'absent': absent,
+<<<<<<< HEAD
+        'leave': leave,
         'attendance': attendance_info,
     })
 
+
+=======
+        'attendance': attendance_info,
+    })
+
+>>>>>>> f9f3843 (최종수정)
 from django.http import JsonResponse
 from .models import AccAtt801
 from django.core import serializers

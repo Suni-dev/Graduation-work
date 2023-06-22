@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>31337:실시간 출석현황페이지</title>
+    <title>ELITE:실시간 출석현황페이지</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -190,7 +190,7 @@
 </head>
 <body>
     <header>
-        <h1>Created by TEAM.31337</h1>
+        <h1>Created by Team.ELITE</h1>
         <h2>실시간 출석 현황</h2>
         <h3>현재 수업: 인공지능</h3>
         <div style="text-align: right; margin-right: 30px;">
@@ -263,11 +263,11 @@
   </form>
     <script>
     // 'http://192.168.155.24:8000/check/api/',
-    // 'http://127.0.0.1:8000/api/',
-    // 'url:'http://ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com/api',
+    // 'http://127.0.0.1:8000/api1/',
+    // 'url:'http://ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com/api1',
     function updateStatus() {
     $.ajax({
-        url:'http://127.0.0.1:8000/api/',
+        url:'http://ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com/api1',
         type: 'GET',
         success: function(data) {
             // 'total'에 대한 카운트 업 애니메이션 적용

@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>31337:교수메인페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/professor/professor_main.css' %}">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+<body>
+    <div class="container">
+          <div class="sidebar sticky">
+            <a href="/">
+              <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+              class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+            </a>
+            <nav class="navbar navbar-expand-lg">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의1</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의1 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의2</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의2 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의2 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의2 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의3</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의3 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의3 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의3 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의4</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의4 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의4 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의4 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의5</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의5 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의5 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의5 - 주제3</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">강의6</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">강의6 - 주제1</a>
+                      <a class="dropdown-item" href="#">강의6 - 주제2</a>
+                      <a class="dropdown-item" href="#">강의6 - 주제3</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+            <div class="content">
+              <div class="main-content">
+                  <h2 class="text-center text-dark mt-5 animate__animated animate__zoomIn">교수 메인 페이지</h2>
+                  <div class="student-info mt-5">
+                    <p>이름: {{ user.username }}</p>
+                    <p>학번: {{ user.id }}</p>
+                    <p>전공: {{ user.usermajor }}</p>
+                  </div>
+                  <div class="graph mt-5">
+                  <canvas id="attendance-chart-1"></canvas>
+                  </div> </div>
+                  <canvas id="attendance-chart-1"></canvas>
+
+  </body>
+  </html>
+<script type="text/javascript" src="{% static 'js/professor/professor_main.js' %}"></script>

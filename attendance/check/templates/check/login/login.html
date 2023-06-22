@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>31337:로그인 페이지</title>
+    <title>ELITE:로그인 페이지</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -17,10 +17,9 @@
             <form class="card-body card-body-color p-lg-5" method="POST" action="{% url 'check:login' %}">
               {% csrf_token %}
               <h2 class="text-center text-dark mt-5">로그인</h2>
-              <div class="text-center mb-5 text-dark">Created by Team.31337</div>
+              <div class="text-center mb-5 text-dark">Created by Team.ELITE</div>
               <div class="text-center">
-                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-                  class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+                <img src="/media/mind.png" class="img-fluid profile-image-pic img-thumbnail my-3" style="object-fit: cover; width: 200px; height: 250px;" alt="profile">
               </div>
               <div class="mb-3">
                 <input type="text" class="form-control" id="id" name="id" placeholder="아이디">

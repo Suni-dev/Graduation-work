@@ -1,0 +1,56 @@
+
+body {
+  background-color: #f5f5f5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.card-login {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  background-color: #005c97;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px 20px;
+}
+.card-header h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+.card-body {
+  background-color: #fff;
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.btn-color {
+  background-color: #005C97;
+  color: #ffffff;
+  border-radius: 30px;
+  border: none;
+}
+.btn-color:hover {
+  background-color: #00315c;
+}
+.result-message {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.result-message span {
+  color: #005c97;
+}
+.result-message.failed span {
+  color: #FF4D4D;
+}

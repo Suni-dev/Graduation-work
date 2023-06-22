@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ELITE:로그인 페이지</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login/login.css' %}">
+    <script type="text/javascript" src="{% static 'js/login/login.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card my-5">
+            <form class="card-body card-body-color p-lg-5" method="POST" action="{% url 'check:login' %}">
+              {% csrf_token %}
+              <h2 class="text-center text-dark mt-5">로그인</h2>
+              <div class="text-center mb-5 text-dark">Created by Team.ELITE</div>
+              <div class="text-center">
+                <img src="/media/mind.png"
+                class="img-fluid profile-image-pic img-thumbnail my-3" style="object-fit: cover; width: 200px; height: 250px;" alt="profile">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="id" name="id" placeholder="아이디">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+              </div>
+              <div class="text-center mb-3">
+                <button type="submit" class="btn btn-color px-5 mb-5 w-100">로그인</button>
+                <a href="{% url 'check:find_id' %}" class="text-dark fw-bold">ID 찾기</a>
+                <a href="{% url 'check:password_reset_user' %}" class="text-dark fw-bold">비밀번호 찾기</a>
+              </div>
+              <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                회원이 아닌가요? <a href="{% url 'check:agreement' %}" class="text-dark fw-bold">회원가입</a>
+              </div>
+              {% if messages %}
+              <div id= 'alert-msg' class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:실시간 출석현황페이지</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_main.css' %}">
+  <style>
+  body {
+    overflow: auto;
+    background-color: #F7F7F7;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding: 1rem;
+  }
+  .sidebar {
+    width: 25%;
+    border-right: 1px solid #dee2e6;
+    margin-top: 1rem;
+  }
+  .sticky {
+    position: sticky;
+    top: 1rem;
+  }
+  .nav-link {
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  color: #333;
+  transition: background-color 0.3s ease;
+  }
+  .nav-link:hover {
+  background-color: #f7f7f7;
+  }
+  .active {
+  background-color: #e9ecef;
+  font-weight: bold;
+  }
+  .nav-item:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+  }
+  .navbar-nav {
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Made by TEAM.31337</h1>
+    <h2>실시간 출석 현황</h2>
+  </header>
+
+  <div class="container fade-in">
+    <div class="status-cards">
+      <div class="status-card">
+        <h2>총원</h2>
+        <p id="total">0</p>
+      </div>
+
+      <div class="status-card">
+        <h2>출석</h2>
+        <p id="attendance">0</p>
+      </div>
+
+      <div class="status-card">
+        <h2>지각</h2>
+        <p id="late">0</p>
+      </div>
+
+      <div class="status-card">
+        <h2>결석</h2>
+        <p id="absent">0</p>
+      </div>
+      
+      <div class="status-card">
+        <h2>출석률</h2>
+        <p id="percentage">0%</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>학번</th>
+          <th>출석 상태</th>
+          <th>수업 시간</th>
+          <th>이탈(분)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attendance in attendance_list %}
+          <tr>
+            <td>{{ attendance.student_name }}</td>
+            <td>{{ attendance.student_id }}</td>
+            <td>{{ attendance.attendance_status }}</td>
+            <td>{{ attendance.class_time }}</td>
+            <td>{{ attendance.late_count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <div class="sidebar sticky">
+      <a href="/">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+             class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+      </a>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">강의1</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                <a class="dropdown-item" href="#">강의1 - 주제3</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">강의2</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                <a class="dropdown-item" href="#">강의1 - 주제3</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">강의3</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                <a class="dropdown-item" href="#">강의1 - 주제3</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">강의4</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                <a class="dropdown-item" href="#">강의1 - 주제3</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#">강의5</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">강의1 - 주제1</a>
+                <a class="dropdown-item" href="#">강의1 - 주제2</a>
+                <a class="dropdown-item" href="#">강의1 - 주제3</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="attendance"></div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      function updateStatus() {
+        $.ajax({
+          url: 'http://127.0.0.1:8000/check_31337/api_31337/', // 'http://192.168.224.24:8000/check/api/',
+          type: 'GET',
+          success: function (data) {
+            $('#total').text(data.total + '명');
+            $('#attendance').text(data.attendance_count + '명');
+            $('#late').text(data.late + '명');
+            $('#absent').text(data.absent + '명');
+
+            var tbody = $("tbody").empty();
+            for (var i = 0; i < data.attendance.length; i++) {
+              var attendance = data.attendance[i];
+              tbody.append(
+                `<tr>
+                  <td>${attendance.student_name}</td>
+                  <td>${attendance.student_id}</td>
+                  <td>${attendance.attendance_status}</td>
+                  <td>${attendance.class_time}</td>
+                  <td>${attendance.late_count}</td>
+                </tr>`
+              );
+            }
+            // 출석률 계산
+            if (data.total > 0) {
+              var attendanceRate = ((data.attendance_count + data.late) / data.total) * 100;
+              $('#percentage').text(attendanceRate.toFixed(2) + '%');
+            } else {
+              $('#percentage').text('N/A');
+            }
+          },
+          error: function () {
+            $('#total').text('N/A');
+            $('#attendance').text('N/A');
+            $('#late').text('N/A');
+            $('#absent').text('N/A');
+            $('#percentage').text('N/A');
+          }
+        });
+      }
+
+      setInterval(updateStatus, 2000);
+    });
+  </script>
+</body>
+</html>

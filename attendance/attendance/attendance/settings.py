@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-wj_ugo)*ijz0@@falu48_d04k!#d01!uvf!e)f^%)_h$k!c#t8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
+ALLOWED_HOSTS = ['13.236.152.55','192.168.155.24', 'localhost', '127.0.0.1','ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com']
+=======
 ALLOWED_HOSTS = ['192.168.155.24', 'localhost', '127.0.0.1','ec2-13-236-152-55.ap-southeast-2.compute.amazonaws.com']
+>>>>>>> f9f3843 (최종수정)
 
 LOGIN_URL = '/login/'
 

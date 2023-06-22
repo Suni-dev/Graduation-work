@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>31337:학생 메인 페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/student/student_att.css' %}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <button class="logout-btn" onclick="logout()">로그아웃</button>
+  <div class="container">
+    <div class="sidebar sticky">
+      <a href="/">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px" alt="profile">
+      </a>
+      <nav class="navbar navbar-expand-lg">
+        <!-- Your navigation menu here -->
+      </nav>
+    </div>
+    <div class="content"> 
+      <div class="main-content">
+        <h2 class="text-center text-dark mt-5">출석 현황</h2>
+        <div class="student-info mt-5">
+          <!-- Student info here -->
+        </div>
+        <div class="attendance mt-5">
+          <table>
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>출석 상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attendance in attendances %}
+              <tr>
+                <td>{{ attendance.date }}</td>
+                <td>{{ attendance.status }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function logout() {
+      document.getElementById("logout-form").submit();
+    }
+  </script>
+  <form id="logout-form" action="{% url 'check:logout' %}" method="POST">
+    {% csrf_token %}
+  </form>
+</body>
+</html>

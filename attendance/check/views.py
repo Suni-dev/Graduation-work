@@ -287,19 +287,6 @@ def api_view1(request):
     })
 
 
-from django.http import JsonResponse
-from .models import AccAtt801
-from django.core import serializers
-
-def api_view2(request):
-    # AccAtt801 모델의 모든 객체를 가져옵니다.
-    acc_att_801_data = AccAtt801.objects.all()
-
-    # 객체를 JSON으로 변환합니다.
-    json_data = serializers.serialize('json', acc_att_801_data)
-
-    # JsonResponse 객체를 반환합니다.
-    return JsonResponse(json_data, safe=False)
 
 
 
